@@ -1,0 +1,10 @@
+**/.vscode/*
+**/.vs/*
+
+**.exe
+**.lib
+**.dll
+**.pdb
+**.log
+
+**/out/*
