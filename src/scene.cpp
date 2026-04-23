@@ -12,7 +12,11 @@ bool scene::Intersect(const ray &ray, float tMin, float tMax, ShapeIntersection 
         const auto &shape = my_shapes.at(i);
         ShapeIntersection intersection;
         if (shape->Intersect(ray, tMin, tMax, intersection)) {
-            if (intersection.time_of_intersection < min_time_of_intersection) {
+            if (
+                intersection.time_of_intersection >= tMin
+                && intersection.time_of_intersection < tMax
+                && intersection.time_of_intersection < min_time_of_intersection
+            ) {
                 min_time_of_intersection = intersection.time_of_intersection;
                 index_of_closest = i;
                 out_intersection = intersection;

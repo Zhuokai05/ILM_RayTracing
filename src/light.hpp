@@ -7,6 +7,7 @@
 #include "ray.hpp"
 
 struct light {
+    virtual ~light() = default;
     virtual Color shade(const ray &ray, const ShapeIntersection &hit, const Material &hit_material) const = 0;
 };
 

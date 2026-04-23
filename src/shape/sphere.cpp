@@ -11,9 +11,11 @@ bool sphere::Intersect(const ray &ray, float tMin, float tMax, ShapeIntersection
     const auto a = glm::dot(ray.direction(), ray.direction());
 
     const auto h = glm::dot(ray.direction(), oc);
-    const auto b = -2.0 * h;
+    // const auto b = -2.0 * h;
+    const auto b = h;
     const auto c = glm::dot(oc, oc) - radius * radius;
-    const auto discriminant = b*b - 4*a*c;
+    // const auto discriminant = b*b - 4.0*a*c;
+    const auto discriminant = b*b - a*c;
 
     const auto sqrtd = std::sqrt(discriminant);
     const auto root = (h - sqrtd) / a;
