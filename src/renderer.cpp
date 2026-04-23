@@ -1,5 +1,5 @@
 #include "renderer.hpp"
-#include "glm/geometric.hpp"
+#include <glm/geometric.hpp>
 
 void renderer::render() {
     for (std::size_t y = 0; y < film.GetTamY(); ++y) {

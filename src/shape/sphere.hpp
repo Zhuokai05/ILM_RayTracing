@@ -1,7 +1,7 @@
 #ifndef SPHERE_HPP
 #define SPHERE_HPP
 
-#include "../glm/vec3.hpp"
+#include <glm/vec3.hpp>
 #include "../shape.hpp"
 #include <cstddef>
 

@@ -1,5 +1,5 @@
 #include "sphere.hpp"
-#include "../glm/geometric.hpp"
+#include <glm/geometric.hpp>
 
 bool sphere::Intersect(const ray &ray, float tMin, float tMax) const {
     ShapeIntersection unused;

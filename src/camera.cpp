@@ -1,6 +1,6 @@
 #include "camera.hpp"
-#include "glm/geometric.hpp"
-#include "glm/trigonometric.hpp"
+#include <glm/geometric.hpp>
+#include <glm/trigonometric.hpp>
 
 camera::camera(
     glm::vec3 position,

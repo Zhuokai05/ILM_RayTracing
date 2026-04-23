@@ -4,8 +4,13 @@ setlocal
 cd "%~dp0"
 
 @REM set compiler=clang++ 
-set compiler=g++ 
-%compiler% -o out/main.exe .\src\main.cpp .\src\camera.cpp .\src\Film.cpp .\src\shape\sphere.cpp .\src\renderer.cpp .\src\scene.cpp
+set compiler=g++
+
+mkdir out
+%compiler% ^
+    -o out/main.exe ^
+    .\src\main.cpp .\src\camera.cpp .\src\Film.cpp .\src\shape\sphere.cpp .\src\renderer.cpp .\src\scene.cpp ^
+    -Ivendor
 
 cd .\out
 .\main.exe
