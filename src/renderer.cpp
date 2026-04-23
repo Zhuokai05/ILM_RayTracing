@@ -13,9 +13,17 @@ void renderer::render() {
 
 Color renderer::ray_color(const ray &ray) const {
     static constexpr float scene_limit = 10000.0;
+
+    Color result{0.0, 0.0, 0.0};
+    // TODO: ambient light
+
     ShapeIntersection intersection;
-    if (my_shape->Intersect(ray, 0.0f, scene_limit, intersection)) {
-        return materials.at(intersection.material_index).color;
+    if (my_world.my_shape->Intersect(ray, 0.0f, scene_limit, intersection)) {
+        const auto &material = materials.at(intersection.material_index);
+        for (const auto &light : my_world.my_lights) {
+            result += light->shade(ray, intersection, material);
+        }
+        return result;
     } else {
         return Color{0.0, 0.0, 0.0};
         // glm::vec3 unit_direction = glm::normalize(ray.direction());

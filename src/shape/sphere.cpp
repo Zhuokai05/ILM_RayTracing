@@ -6,8 +6,7 @@ bool sphere::Intersect(const ray &ray, float tMin, float tMax) const {
     return Intersect(ray, tMin, tMax, unused);
 }
 
-bool sphere::Intersect(const ray &ray, float tMin, float tMax, ShapeIntersection &out_intersection) const
-{
+bool sphere::Intersect(const ray &ray, float tMin, float tMax, ShapeIntersection &out_intersection) const {
     glm::vec3 oc = center - ray.origin();
     const auto a = glm::dot(ray.direction(), ray.direction());
 
@@ -20,7 +19,8 @@ bool sphere::Intersect(const ray &ray, float tMin, float tMax, ShapeIntersection
     const auto root = (h - sqrtd) / a;
     out_intersection = ShapeIntersection{
         material_index,
-        static_cast<float>(root)
+        static_cast<float>(root),
+        glm::normalize(ray.at(root) - center)
     };
     return (discriminant >= 0);
 }
