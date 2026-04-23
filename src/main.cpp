@@ -8,6 +8,7 @@
 #include "shape/sphere.hpp"
 #include "light.hpp"
 #include "light/light_directional.hpp"
+#include "light/light_ambient.hpp"
 
 #include <fstream>
 
@@ -46,6 +47,7 @@ int main(void) {
     
     auto lights = std::vector<std::unique_ptr<light>>{};
     lights.emplace_back(std::make_unique<light_directional>(glm::normalize(glm::vec3{-1.0, -1.0, -1.0}), Color{0.4, 1.0, 0.8}, Color{1.0, 1.0, 1.0}, 64.0));
+    lights.emplace_back(std::make_unique<light_ambient>(Color{0.1, 0.1, 0.1}));
     world the_world{
         std::make_unique<scene>(std::move(shapes)),
         std::move(lights)

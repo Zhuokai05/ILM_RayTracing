@@ -12,7 +12,9 @@ mkdir out
     -g ^
     -std=c++17 ^
     -o out/main.exe ^
-    .\src\main.cpp .\src\camera.cpp .\src\Film.cpp .\src\shape\sphere.cpp .\src\renderer.cpp .\src\scene.cpp .\src\light\light_directional.cpp ^
+        .\src\main.cpp .\src\camera.cpp .\src\Film.cpp .\src\renderer.cpp .\src\scene.cpp ^
+        .\src\shape\sphere.cpp ^
+        .\src\light\light_directional.cpp .\src\light\light_ambient.cpp ^
     -isystem vendor
 
 cd .\out
