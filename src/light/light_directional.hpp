@@ -12,6 +12,7 @@ struct light_directional : public light {
     light_directional(glm::vec3 direction, Color diffuse, Color specular, float specular_power)
         : direction{direction}, diffuse{diffuse}, specular{specular}, specular_power{specular_power} { }
     Color shade(const ray &ray, const ShapeIntersection &hit, const Material &hit_material) const override;
+    glm::vec3 shadow_direction(const glm::vec3 surface_point) const override;
 };
 
 #endif

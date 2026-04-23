@@ -10,3 +10,7 @@ Color light_point::shade(const ray &ray, const ShapeIntersection &hit, const Mat
     return hit_material.color * diffuse * diffuse_factor
         + specular * specular_factor;
 }
+
+glm::vec3 light_point::shadow_direction(const glm::vec3 surface_point) const {
+    return glm::normalize(position - surface_point);
+}

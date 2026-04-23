@@ -1,4 +1,5 @@
 #include "renderer.hpp"
+#include "ray.hpp"
 #include <glm/geometric.hpp>
 
 void renderer::render() {
@@ -20,8 +21,12 @@ Color renderer::ray_color(const ray &ray) const {
     ShapeIntersection intersection;
     if (my_world.my_shape->Intersect(ray, 0.0f, scene_limit, intersection)) {
         const auto &material = materials.at(intersection.material_index);
+        const glm::vec3 surface = ray.at(intersection.time_of_intersection);
         for (const auto &light : my_world.my_lights) {
-            result += light->shade(ray, intersection, material);
+            const ::ray shadow_ray = ::ray{surface, light->shadow_direction(surface)};
+            if (!my_world.my_shape->Intersect(shadow_ray, 0.0, scene_limit)) {
+                result += light->shade(ray, intersection, material);
+            }
         }
         return result;
     } else {

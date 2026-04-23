@@ -8,3 +8,7 @@ Color light_directional::shade(const ray &ray, const ShapeIntersection &hit, con
     return hit_material.color * diffuse * diffuse_factor
         + specular * specular_factor;
 }
+
+glm::vec3 light_directional::shadow_direction(const glm::vec3 surface_point) const {
+    return -direction;
+}
