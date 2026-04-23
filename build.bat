@@ -5,6 +5,7 @@ cd "%~dp0"
 
 @REM set compiler=clang++ 
 set compiler=g++
+@REM set compiler=cl 
 
 mkdir out
 %compiler% ^
