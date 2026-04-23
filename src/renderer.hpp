@@ -2,6 +2,7 @@
 #define RENDERER_HPP
 
 #include <memory>
+#include <vector>
 #include "Film.h"
 #include "camera.hpp"
 #include "shape.hpp"
