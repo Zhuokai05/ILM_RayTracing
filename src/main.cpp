@@ -45,7 +45,7 @@ int main(void) {
     materials.at(material_type_green) = Material{{0.0, 1.0, 0.0}};
     
     auto lights = std::vector<std::unique_ptr<light>>{};
-    lights.emplace_back(std::make_unique<light_directional>(glm::normalize(glm::vec3{-1.0, -1.0, -1.0}), Color{0.2, 0.8, 0.4}, Color{1.0, 1.0, 1.0}, 64.0));
+    lights.emplace_back(std::make_unique<light_directional>(glm::normalize(glm::vec3{-1.0, -1.0, -1.0}), Color{0.4, 1.0, 0.8}, Color{1.0, 1.0, 1.0}, 64.0));
     world the_world{
         std::make_unique<scene>(std::move(shapes)),
         std::move(lights)
