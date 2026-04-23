@@ -16,9 +16,11 @@ Color renderer::ray_color(const ray &ray) const {
     ShapeIntersection intersection;
     if (my_shape->Intersect(ray, 0.0f, scene_limit, intersection)) {
         return materials.at(intersection.material_index).color;
+    } else {
+        return Color{0.0, 0.0, 0.0};
+        // glm::vec3 unit_direction = glm::normalize(ray.direction());
+        // float a = 0.5*(unit_direction.y + 1.0);
+        // return (1.0f-a)*Color(1.0, 1.0, 1.0) + a*Color(0.5, 0.7, 1.0);
     }
 
-    glm::vec3 unit_direction = glm::normalize(ray.direction());
-    float a = 0.5*(unit_direction.y + 1.0);
-    return (1.0f-a)*Color(1.0, 1.0, 1.0) + a*Color(0.5, 0.7, 1.0);
 }

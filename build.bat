@@ -9,8 +9,9 @@ set compiler=g++
 
 mkdir out
 %compiler% ^
+    -g ^
     -o out/main.exe ^
-    .\src\main.cpp .\src\camera.cpp .\src\Film.cpp .\src\shape\sphere.cpp .\src\renderer.cpp .\src\scene.cpp ^
+    .\src\main.cpp .\src\camera.cpp .\src\Film.cpp .\src\shape\sphere.cpp .\src\renderer.cpp .\src\scene.cpp .\src\light\light_directional.cpp ^
     -Ivendor
 
 cd .\out
