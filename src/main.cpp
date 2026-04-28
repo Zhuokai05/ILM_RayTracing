@@ -6,6 +6,7 @@
 #include "renderer.hpp"
 #include "scene.hpp"
 #include "shape/sphere.hpp"
+#include "shape/quad.hpp"
 #include "light.hpp"
 #include "light/light_directional.hpp"
 #include "light/light_ambient.hpp"
@@ -24,8 +25,8 @@ enum material_type : std::uint8_t {
 
 int main(void) {
     std::ofstream out{"imagen.ppm"};
-    Film film{1920, 1080, out};
-    // Film film{800, 600, out};
+    // Film film{1920, 1080, out};
+    Film film{800, 600, out};
 
     camera cam{
         {0.0, 0.0, 3.0},
@@ -38,7 +39,8 @@ int main(void) {
     shapes.emplace_back(std::make_unique<sphere>(material_type_red,     glm::vec3{-2.0, 0.0, -2.0},     1.0f));
     shapes.emplace_back(std::make_unique<sphere>(material_type_yellow,  glm::vec3{0.0, 0.0, -2.0},      1.0f));
     shapes.emplace_back(std::make_unique<sphere>(material_type_blue,    glm::vec3{2.0, 0.0, -2.0},      1.0f));
-    shapes.emplace_back(std::make_unique<sphere>(material_type_green,   glm::vec3{0.0, -100.0, -2.0},   99.0f));
+    // shapes.emplace_back(std::make_unique<sphere>(material_type_green,   glm::vec3{0.0, -100.0, -2.0},   99.0f));
+    shapes.emplace_back(std::make_unique<quad>(material_type_green,     glm::vec3{3.0, -1.0, 5.0},      glm::vec3{12.0, 0.0, 0.0}, glm::vec3{0.0, 0.0, 6.0}));
 
     auto materials = std::vector<Material>{material_type_count};
     materials.at(material_type_red) =       Material{{1.0, 0.0, 0.0}, 0.5};

@@ -10,7 +10,7 @@ struct sphere : public shape {
     glm::vec3 center;
     float radius;
 
-    inline ~sphere() override = default;
+    // inline ~sphere() override = default;
     inline sphere(std::size_t material_index, glm::vec3 center, float radius)
         : material_index(material_index), center(center), radius(radius) { }
     bool Intersect(const ray &ray, float tMin, float tMax) const override;

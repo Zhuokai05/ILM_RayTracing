@@ -22,7 +22,8 @@ bool sphere::Intersect(const ray &ray, float tMin, float tMax, ShapeIntersection
     out_intersection = ShapeIntersection{
         material_index,
         static_cast<float>(root),
-        glm::normalize(ray.at(root) - center)
+        glm::normalize(ray.at(root) - center),
+        glm::vec2{std::numeric_limits<float>::signaling_NaN(), std::numeric_limits<float>::signaling_NaN()}
     };
     return (discriminant >= 0);
 }
