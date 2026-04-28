@@ -5,6 +5,7 @@
 
 struct Material {
     Color color;
+    float reflection_factor;
 };
 
 #endif

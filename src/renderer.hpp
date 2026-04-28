@@ -18,6 +18,9 @@ struct renderer {
 
     void render();
     Color ray_color(const ray &ray) const;
+    Color ray_color_leveled(const ray &ray, const std::size_t reflection_level, const std::size_t reflection_level_max) const;
+    Color shade(const ray &ray, const ShapeIntersection &hit, const Material &hit_material) const;
+    Color shade_leveled(const ray &ray, const ShapeIntersection &hit, const Material &hit_material, const std::size_t reflection_level, const std::size_t reflection_level_max) const;
 };
 
 #endif
