@@ -6,7 +6,7 @@ Color light_ambient::shade(const ray &ray, const ShapeIntersection &hit, const M
     (void)ray;
     (void)hit;
     (void)hit_material;
-    return ambient;
+    return ambient * hit_material.color;
 }
 
 glm::vec3 light_ambient::shadow_direction(const glm::vec3 surface_point) const {

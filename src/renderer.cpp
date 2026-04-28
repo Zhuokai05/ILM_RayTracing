@@ -28,6 +28,8 @@ Color renderer::ray_color(const ray &ray) const {
                 result += light->shade(ray, intersection, material);
             }
         }
+        // TODO: reflect
+
         return result;
     } else {
         return Color{0.0, 0.0, 0.0};
