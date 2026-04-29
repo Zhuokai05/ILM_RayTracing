@@ -6,7 +6,8 @@
 #include "Film.h"
 #include "camera.hpp"
 #include "shape.hpp"
-#include "shape/material.hpp"
+#include "material.hpp"
+#include "texture.hpp"
 #include "world.hpp"
 
 struct renderer {
@@ -15,6 +16,7 @@ struct renderer {
     //std::unique_ptr<shape> my_shape{};
     world my_world;
     std::vector<Material> materials{};
+    std::vector<std::unique_ptr<texture>> textures{};
 
     void render();
     Color ray_color(const ray &ray) const;

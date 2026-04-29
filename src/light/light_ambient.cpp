@@ -2,11 +2,9 @@
 #include <glm/gtc/random.hpp>
 #include <glm/glm.hpp>
 
-Color light_ambient::shade(const ray &ray, const ShapeIntersection &hit, const Material &hit_material) const {
+Color light_ambient::shade(const ray &ray, const ShapeIntersection &hit, const Material &hit_material, const texture &hit_texture) const {
     (void)ray;
-    (void)hit;
-    (void)hit_material;
-    return ambient * hit_material.color;
+    return ambient * hit_material.sample(hit.texcoord, hit_texture);
 }
 
 glm::vec3 light_ambient::shadow_direction(const glm::vec3 surface_point) const {

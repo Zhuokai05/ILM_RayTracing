@@ -41,7 +41,7 @@ Color renderer::shade_leveled(const ray &ray, const ShapeIntersection &hit, cons
     for (const auto &light : my_world.my_lights) {
         const ::ray shadow_ray = ::ray{surface, light->shadow_direction(surface)};
         if (!my_world.my_shape->Intersect(shadow_ray, 0.0, scene_limit)) {
-            result += light->shade(ray, hit, hit_material);
+            result += light->shade(ray, hit, hit_material, hit_material.get_texture(textures));
         }
     }
 
