@@ -1,4 +1,5 @@
 #include "texture_checker.hpp"
+#include <cmath>
 
 Color texture_checker::sample(const glm::vec2 uv) const {
     const int u = static_cast<std::size_t>(std::floor(uv.x * tiling.x + offset.x));
