@@ -57,3 +57,15 @@ ray camera::get_ray_unfocus(const float x, const float y, const float factor) co
 
     return ray{origin, glm::normalize(displacement)};
 }
+
+ray camera::get_ray_unfocus_jitter(const float x, const float y, const float factor_unfocus, const glm::vec2 jitter_window, const float factor_jitter) const {
+    const glm::vec2 offset = glm::diskRand(position_unfocus_radius) * factor_unfocus;
+    const glm::vec3 origin = position + right * offset.x + up * offset.y;
+
+    const glm::vec2 jitter = glm::linearRand(-jitter_window, jitter_window) * 0.5f * factor_jitter;
+    const glm::vec3 sample =
+        position_top_left + delta_x * (x + jitter.x) + delta_y * (y + jitter.y);
+    const glm::vec3 displacement = (sample - origin);
+
+    return ray{origin, glm::normalize(displacement)};
+}

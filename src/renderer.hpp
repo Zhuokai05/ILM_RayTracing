@@ -17,6 +17,8 @@ struct renderer {
     world my_world;
     std::vector<Material> materials{};
     std::vector<std::unique_ptr<texture>> textures{};
+    std::size_t samples_per_pixel_x;
+    std::size_t samples_per_pixel_y;
 
     void render();
     Color ray_color(const ray &ray) const;

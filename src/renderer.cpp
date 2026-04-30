@@ -3,15 +3,27 @@
 #include <glm/geometric.hpp>
 
 void renderer::render() {
+    const float sample_weight = 1.0f / (samples_per_pixel_x * samples_per_pixel_y); 
     for (std::size_t y = 0; y < film.GetTamY(); ++y) {
         for (std::size_t x = 0; x < film.GetTamX(); ++x) {
             const float x_center = static_cast<float>(x);
             const float y_center = static_cast<float>(y);
-            const ray ray_primary = cam.get_ray_unfocus(x_center, y_center, 1.0f);
+            // const ray ray_primary = cam.get_ray_unfocus(x_center, y_center, 1.0f);
 
-            // TODO: pass time as parameter for scene
-            const Color c = ray_color(ray_primary);
-            film.AddPixel(c);
+            const float x_sampling_window = 1.0f / static_cast<float>(samples_per_pixel_x);
+            const float y_sampling_window = 1.0f / static_cast<float>(samples_per_pixel_y);
+
+            Color result{0.0, 0.0, 0.0};
+            for (std::size_t sample_y = 0; sample_y < samples_per_pixel_y; ++sample_y) {
+                for (std::size_t sample_x = 0; sample_x < samples_per_pixel_x; ++sample_x) {
+                    const float x_sample = x_center + (static_cast<float>(sample_x) + 0.5f) * x_sampling_window - 0.5f;
+                    const float y_sample = y_center + (static_cast<float>(sample_y) + 0.5f) * y_sampling_window - 0.5f;
+                    const ray ray_sample = cam.get_ray_unfocus_jitter(x_sample, y_sample, 1.0f, {x_sampling_window, y_sampling_window}, 1.0f);
+                    // TODO: pass time as parameter for scene
+                    result += ray_color(ray_sample);
+                }
+            }
+            film.AddPixel(result * sample_weight);
         }
     }
 }
