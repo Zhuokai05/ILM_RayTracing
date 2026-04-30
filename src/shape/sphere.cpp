@@ -1,5 +1,6 @@
 #include "sphere.hpp"
 #include <glm/geometric.hpp>
+#include <glm/ext/scalar_constants.hpp>
 
 bool sphere::Intersect(const ray &ray, float tMin, float tMax) const {
     ShapeIntersection unused;
@@ -19,11 +20,24 @@ bool sphere::Intersect(const ray &ray, float tMin, float tMax, ShapeIntersection
 
     const auto sqrtd = std::sqrt(discriminant);
     const auto root = (h - sqrtd) / a;
-    out_intersection = ShapeIntersection{
-        material_index,
-        static_cast<float>(root),
-        glm::normalize(ray.at(root) - center),
-        glm::vec2{std::numeric_limits<float>::signaling_NaN(), std::numeric_limits<float>::signaling_NaN()}
-    };
-    return (discriminant >= 0);
+
+    if (tMin <= root && root <= tMax) {
+        const auto local = ray.at(root) - center;
+
+        const auto local_normalized = local / radius;
+        const auto theta = std::acos(-local_normalized.y);
+        const auto phi = std::atan2(-local_normalized.z, local_normalized.x) + glm::pi<float>();
+
+        const auto u = phi / (2.0f * glm::pi<float>());
+        const auto v = theta / glm::pi<float>();
+        out_intersection = ShapeIntersection{
+            material_index,
+            static_cast<float>(root),
+            local_normalized,
+            glm::vec2{u, v}
+        };
+        return (discriminant >= 0);
+    } else {
+        return false;
+    }
 }

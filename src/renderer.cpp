@@ -40,7 +40,8 @@ Color renderer::shade_leveled(const ray &ray, const ShapeIntersection &hit, cons
     const glm::vec3 surface = ray.at(hit.time_of_intersection);
     for (const auto &light : my_world.my_lights) {
         const ::ray shadow_ray = ::ray{surface, light->shadow_direction(surface)};
-        if (!my_world.my_shape->Intersect(shadow_ray, 0.0, scene_limit)) {
+        static constexpr glm::vec3 zero{0.0, 0.0, 0.0};
+        if (shadow_ray.direction() == zero || !my_world.my_shape->Intersect(shadow_ray, 0.0, scene_limit)) {
             result += light->shade(ray, hit, hit_material, hit_material.get_texture(textures));
         }
     }
