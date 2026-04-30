@@ -5,14 +5,19 @@
 void renderer::render() {
     for (std::size_t y = 0; y < film.GetTamY(); ++y) {
         for (std::size_t x = 0; x < film.GetTamX(); ++x) {
-            const ray ray_primary = cam.get_ray(x, y);
+            const float x_center = static_cast<float>(x);
+            const float y_center = static_cast<float>(y);
+            const ray ray_primary = cam.get_ray_unfocus(x_center, y_center, 1.0f);
+
+            // TODO: pass time as parameter for scene
             const Color c = ray_color(ray_primary);
             film.AddPixel(c);
         }
     }
 }
 
-static constexpr float scene_limit = 10000.0;
+static constexpr float scene_limit_max = 10000.0;
+static constexpr float scene_limit_min = 0.001;
 static constexpr std::size_t reflection_level_max_default = 10ull;
 Color renderer::ray_color(const ray &ray) const {
     return ray_color_leveled(ray, 0ull, reflection_level_max_default);
@@ -20,7 +25,7 @@ Color renderer::ray_color(const ray &ray) const {
 
 Color renderer::ray_color_leveled(const ray &ray, const std::size_t reflection_level, const std::size_t reflection_level_max) const {
     ShapeIntersection intersection;
-    if (my_world.my_shape->Intersect(ray, 0.0f, scene_limit, intersection)) {
+    if (my_world.my_shape->Intersect(ray, scene_limit_min, scene_limit_max, intersection)) {
         const auto &material = materials.at(intersection.material_index);
         return shade_leveled(ray, intersection, material, reflection_level, reflection_level_max);
     } else {
@@ -41,7 +46,7 @@ Color renderer::shade_leveled(const ray &ray, const ShapeIntersection &hit, cons
     for (const auto &light : my_world.my_lights) {
         const ::ray shadow_ray = ::ray{surface, light->shadow_direction(surface)};
         static constexpr glm::vec3 zero{0.0, 0.0, 0.0};
-        if (shadow_ray.direction() == zero || !my_world.my_shape->Intersect(shadow_ray, 0.0, scene_limit)) {
+        if (shadow_ray.direction() == zero || !my_world.my_shape->Intersect(shadow_ray, scene_limit_min, scene_limit_max)) {
             result += light->shade(ray, hit, hit_material, hit_material.get_texture(textures));
         }
     }

@@ -53,14 +53,15 @@ int main(void) {
         {0.0, 0.0, 0.0},
         {0.0, 1.0, 0.0},
         film,
-        60.0
+        60.0,
+        2.0
     };
     auto shapes = std::vector<std::unique_ptr<shape>>{};
     shapes.emplace_back(std::make_unique<sphere>(material_type_red,         glm::vec3{-2.0, 0.0, -2.0},     1.0f));
     shapes.emplace_back(std::make_unique<sphere>(material_type_yellow_checker,      glm::vec3{0.0, 0.0, -2.0},      1.0f));
     shapes.emplace_back(std::make_unique<sphere>(material_type_blue,        glm::vec3{2.0, 0.0, -2.0},      1.0f));
     // shapes.emplace_back(std::make_unique<sphere>(material_type_green,   glm::vec3{0.0, -100.0, -2.0},   99.0f));
-    shapes.emplace_back(std::make_unique<quad>(material_type_green_checker, glm::vec3{1.5, -1.0, -3.5}, glm::vec3{-3.0, 0.0, 0.0}, glm::vec3{0.0, 0.0, 3.0}));
+    shapes.emplace_back(std::make_unique<quad>(material_type_green_checker, glm::vec3{4.5, -1.0, -8.0}, glm::vec3{-3.0, 0.0, 0.0}, glm::vec3{0.0, 0.0, 3.0}));
 
     // TODO: move creation to functions
     auto textures = std::vector<std::unique_ptr<texture>>{texture_type_count};
