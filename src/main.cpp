@@ -54,7 +54,7 @@ int main(void) {
         {0.0, 1.0, 0.0},
         film,
         60.0,
-        2.0
+        0.6
     };
     auto shapes = std::vector<std::unique_ptr<shape>>{};
     shapes.emplace_back(std::make_unique<sphere>(material_type_red,         glm::vec3{-2.0, 0.0, -1.5},     1.0f));
