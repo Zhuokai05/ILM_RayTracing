@@ -1,14 +1,15 @@
 #ifndef _FILM_H
 #define _FILM_H
 #include "Color.h"
+#include <fstream>
 #include <iostream>
+#include <utility>
 
 class Film {
 public:
 
-    Film(int x, int y, std::ostream &output) : _tamX(x), _tamY(y), _aspectRatio(1.0f*_tamX / _tamY), _out(output) {}
+    Film(int x, int y, std::ofstream output) : _tamX(x), _tamY(y), _aspectRatio(1.0f*_tamX / _tamY), _out(std::move(output)) {}
 
-    Film(int x, int y) : Film(x, y, std::cout) {}
 
     void AddPixel(Color color);
 
@@ -21,7 +22,7 @@ private:
     int _tamX;
     int _tamY;
 
-    std::ostream &_out;
+    std::ofstream _out;
 
     float _aspectRatio;
 
