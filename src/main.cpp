@@ -90,11 +90,12 @@ int main(void) {
 
     renderer render{
         std::move(film),
+        Color{0.86f, 0.93f, 1.0f},
         std::move(cam),
         std::move(the_world),
         std::move(materials),
         std::move(textures),
-        8, 8
+        4, 4
     };
 
     render.render();

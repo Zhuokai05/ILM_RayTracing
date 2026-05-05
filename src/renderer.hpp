@@ -12,6 +12,7 @@
 
 struct renderer {
     Film film;
+    Color background_color;
     camera cam;
     //std::unique_ptr<shape> my_shape{};
     world my_world;

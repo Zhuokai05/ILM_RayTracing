@@ -41,7 +41,7 @@ Color renderer::ray_color_leveled(const ray &ray, const std::size_t reflection_l
         const auto &material = materials.at(intersection.material_index);
         return shade_leveled(ray, intersection, material, reflection_level, reflection_level_max);
     } else {
-        return Color{0.0, 0.0, 0.0};
+        return background_color;
         // glm::vec3 unit_direction = glm::normalize(ray.direction());
         // float a = 0.5*(unit_direction.y + 1.0);
         // return (1.0f-a)*Color(1.0, 1.0, 1.0) + a*Color(0.5, 0.7, 1.0);
